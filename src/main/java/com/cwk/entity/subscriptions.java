@@ -17,7 +17,7 @@ public class subscriptions implements Serializable {
 
     private Long userId;
 
-    //0-weekly 1-monthly 2-yearly
+    //0-weekly 1-monthly 2-yearly 3-普通用户
     private Integer subscriptionType;
 
     private LocalDateTime endTime;
