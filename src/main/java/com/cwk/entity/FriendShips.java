@@ -13,13 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FriendShips implements Serializable {
-    private Long userId1;
+    private Long userId;
 
-    private Long userId2;
+    private Long friendId;
 
     private Integer status;
-
-    private Long actionUserId;
 
     private LocalDateTime createTime;
 }
