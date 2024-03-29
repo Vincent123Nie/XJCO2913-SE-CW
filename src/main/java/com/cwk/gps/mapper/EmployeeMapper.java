@@ -1,7 +1,7 @@
 package com.cwk.gps.mapper;
 
-import com.cwk.dto.EmployeePageQueryDTO;
-import com.cwk.entity.Employee;
+import com.cwk.pojo.dto.EmployeePageQueryDTO;
+import com.cwk.pojo.entity.Employee;
 import com.cwk.enumeration.OperationType;
 import com.cwk.gps.annotation.AutoFill;
 import com.github.pagehelper.Page;

@@ -1,4 +1,4 @@
-package com.cwk.vo;
+package com.cwk.pojo.vo;
 
 
 import lombok.AllArgsConstructor;

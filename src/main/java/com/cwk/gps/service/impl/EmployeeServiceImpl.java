@@ -1,7 +1,7 @@
 package com.cwk.gps.service.impl;
 
-import com.cwk.dto.EmployeePageQueryDTO;
-import com.cwk.entity.Employee;
+import com.cwk.pojo.dto.EmployeePageQueryDTO;
+import com.cwk.pojo.entity.Employee;
 import com.cwk.exception.AccountLockedException;
 import com.cwk.exception.AccountNotFoundException;
 import com.cwk.exception.PasswordErrorException;
@@ -13,7 +13,6 @@ import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.EmployeeService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -44,12 +43,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         //密码比对
         // TODO 后期需要进行md5加密，然后再进行比对
         password = DigestUtils.md5DigestAsHex(password.getBytes());
-        if (!password.equals(employee.getPassword())) {
+        if (!password.equals(employee1.getPassword())) {
             //密码错误
             throw new PasswordErrorException(MessageConstant.PASSWORD_ERROR);
         }
 
-        if (employee.getStatus() == StatusConstant.DISABLE) {
+        if (employee1.getStatus() == StatusConstant.DISABLE) {
             //账号被锁定
             throw new AccountLockedException(MessageConstant.ACCOUNT_LOCKED);
         }

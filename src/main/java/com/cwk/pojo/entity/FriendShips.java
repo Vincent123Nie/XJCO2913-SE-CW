@@ -1,4 +1,4 @@
-package com.cwk.entity;
+package com.cwk.pojo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,15 +12,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class subscriptions implements Serializable {
-    private Long id;
-
+public class FriendShips implements Serializable {
     private Long userId;
 
-    //0-weekly 1-monthly 2-yearly 3-普通用户
-    private Integer subscriptionType;
+    private Long friendId;
 
-    private LocalDateTime endTime;
+    private Integer status;
 
     private LocalDateTime createTime;
 }

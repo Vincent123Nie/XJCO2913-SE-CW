@@ -1,4 +1,4 @@
-package com.cwk.dto;
+package com.cwk.pojo.dto;
 
 import lombok.Data;
 

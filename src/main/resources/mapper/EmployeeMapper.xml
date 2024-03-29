@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cwk.gps.mapper.EmployeeMapper">
-    <select id="pageQuery" resultType="com.cwk.entity.Employee">
+    <select id="pageQuery" resultType="com.cwk.pojo.entity.Employee">
         select * from employee
         <where>
             <if test="name != null and name != ''">
@@ -12,7 +12,7 @@
         order by create_time desc
     </select>
 
-    <update id="update" parameterType="Employee">
+    <update id="update" parameterType="com.cwk.pojo.entity.Employee">
         update employee
         <set>
             <if test="name!=null">

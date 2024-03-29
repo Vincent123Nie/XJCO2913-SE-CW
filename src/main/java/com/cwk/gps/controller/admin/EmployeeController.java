@@ -1,14 +1,14 @@
 package com.cwk.gps.controller.admin;
 
-import com.cwk.dto.EmployeePageQueryDTO;
-import com.cwk.entity.Employee;
+import com.cwk.gps.utils.JwtUtil;
+import com.cwk.pojo.dto.EmployeePageQueryDTO;
+import com.cwk.pojo.entity.Employee;
 import com.cwk.gps.constant.JwtClaimsConstant;
 import com.cwk.gps.properties.JwtProperties;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.EmployeeService;
-import com.cwk.gps.utils.JwtUtil;
-import com.cwk.vo.EmployeeLoginVO;
+import com.cwk.pojo.vo.EmployeeLoginVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

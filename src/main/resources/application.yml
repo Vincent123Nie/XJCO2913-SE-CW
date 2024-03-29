@@ -5,11 +5,17 @@ spring:
     url: jdbc:mysql://localhost:3306/gps
     username: root
     password: 1234
-    #文件上传的配置
-    servlet:
-      multipart:
-        max-file-size: 10MB
-        max-request-size: 100MB
+  #文件上传的配置
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 123456
+      datebase: 1
 
 mybatis:
   #mapper配置文件
@@ -18,3 +24,19 @@ mybatis:
   configuration:
     #开启驼峰命名
     map-underscore-to-camel-case: true
+
+gps:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: itcast
+    # 设置jwt过期时间
+    admin-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: itheima
+    # 设置jwt过期时间
+    user-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication

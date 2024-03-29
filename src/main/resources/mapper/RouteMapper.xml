@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwk.gps.mapper.RouteMapper">
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into route(userId, status, isShare, startTime) values (#{userId}, #{status}, #{isShare}, #{startTime})
+    </insert>
+    <update id="update">
+        update route
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="isShare != null">
+                isShare = #{isShare},
+            </if>
+            <if test="size != null">
+                size = #{size},
+            </if>
+            <if test="distance != null">
+                distance = #{distance},
+            </if>
+            <if test="time != null">
+                time = #{time},
+            </if>
+            <if test="speed != null">
+                speed = #{speed},
+            </if>
+            <if test="endTime != null">
+                endTime = #{endTime},
+            </if>
+            <if test="locLatitude != null">
+                loc_latitude = #{locLatitude},
+            </if>
+            <if test="locLongitude != null">
+                loc_longitude = #{locLongitude},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <select id="OwnpageQuery" resultType="com.cwk.pojo.vo.RouteVo">
+        select * from route where userId = #{userid} order by route.startTime desc
+    </select>
+</mapper>

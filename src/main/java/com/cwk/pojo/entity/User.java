@@ -1,4 +1,4 @@
-package com.cwk.entity;
+package com.cwk.pojo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,12 +25,11 @@ public class User implements Serializable {
     private String password;
 
     //手机号
-    private String phone;
+    private String logo;
 
     //注册时间
     private LocalDateTime createTime;
 
     //更新时间
     private LocalDateTime updateTime;
-
 }

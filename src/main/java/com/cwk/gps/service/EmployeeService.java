@@ -1,7 +1,7 @@
 package com.cwk.gps.service;
 
-import com.cwk.dto.EmployeePageQueryDTO;
-import com.cwk.entity.Employee;
+import com.cwk.pojo.dto.EmployeePageQueryDTO;
+import com.cwk.pojo.entity.Employee;
 import com.cwk.gps.result.PageResult;
 
 public interface EmployeeService {

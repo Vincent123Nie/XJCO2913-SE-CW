@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwk.gps.mapper.LocationPointMapper">
+
+
+    <insert id="insertBatch">
+        insert into location_point (route_id, longitude, latitude, locTime, speed, type ) VALUES
+        <foreach collection="points" item="ps" separator=",">
+            (#{ps.route_id},#{ps.longitude},#{ps.latitude},#{ps.locTime},#{ps.speed},#{ps.type})
+        </foreach>
+    </insert>
+</mapper>
