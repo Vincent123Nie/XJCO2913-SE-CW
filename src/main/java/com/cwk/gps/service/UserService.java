@@ -7,4 +7,6 @@ public interface UserService {
     User getOne(String email);
 
     void save(User user);
+
+    void update(User user);
 }

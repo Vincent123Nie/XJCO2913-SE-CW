@@ -5,6 +5,7 @@ import com.cwk.gps.properties.JwtProperties;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.UserService;
 import com.cwk.gps.utils.JwtUtil;
+import com.cwk.gps.utils.SendEmailUtils;
 import com.cwk.gps.utils.ValidateCodeUtils;
 import com.cwk.pojo.dto.UserLoginDTO;
 import com.cwk.pojo.entity.User;
@@ -39,7 +40,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/sendMsg")
-    public Result<String> sendMsg(@RequestBody User user, HttpSession session) {
+    public Result sendMsg(@RequestBody User user, HttpSession session) {
         // 获取邮箱号
         String email = user.getEmail();
         if (email == null) {
@@ -49,14 +50,14 @@ public class UserController {
         String code = String.valueOf(ValidateCodeUtils.generateValidateCode(4));
         log.info("验证码为：{}", code);
         //发送验证码到邮箱
-        //SendEmailUtils.sendAuthCodeEmail(email,code);
+        SendEmailUtils.sendAuthCodeEmail(email,code);
         // 将验证码保存到session
-        // session.setAttribute("code", code);
+         session.setAttribute("code", code);
         //将验证码缓存到Redis(有效时间为1分钟)
-        stringRedisTemplate.opsForValue().set("code",code,1, TimeUnit.MINUTES);
-        //将手机号保存到session
+//        stringRedisTemplate.opsForValue().set("code",code,1, TimeUnit.MINUTES);
+        //将邮箱保存到session
         session.setAttribute("email", email);
-        return Result.success("验证码发送成功！");
+        return Result.success(code);
     }
     /**
      * 登录功能
@@ -71,13 +72,13 @@ public class UserController {
         // 获取验证码
         String code = userLoginDTO.getCode();
         // 从session中获取验证码
-        // String codeInSession = (String) session.getAttribute("code");
+         String codeInSession = (String) session.getAttribute("code");
         // 从缓存中获取验证码
-        String codeInRedis = stringRedisTemplate.opsForValue().get("code");
+//        String codeInRedis = stringRedisTemplate.opsForValue().get("code");
         //从session中获取请求验证码的邮箱号
         String emailInSession = (String) session.getAttribute("email");
         // 进行验证码比对
-        if (codeInRedis == null || emailInSession == null || !codeInRedis.equals(code) || !emailInSession.equals(email)) {
+        if (codeInSession == null || emailInSession == null || !codeInSession.equals(code) || !emailInSession.equals(email)) {
             return Result.error("验证码错误");
         }
         // 判断该用户是否注册
@@ -91,8 +92,6 @@ public class UserController {
             user.setLogo("E:\\softwork\\GPS\\src\\main\\resources\\static\\default.png");
             userService.save(user);
         }
-//        UserThreadLocal.set(user.getId());
-//        log.info("当前员工id:{}, {}", user.getId(), UserThreadLocal.get());
 
         //为用户生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
@@ -110,7 +109,7 @@ public class UserController {
         session.setAttribute("user", user.getId());
         session.setMaxInactiveInterval(6*60*60);
         //删除验证码缓存
-        stringRedisTemplate.delete("code");
+//        stringRedisTemplate.delete("code");
         return Result.success(userVo);
     }
     /**
@@ -125,4 +124,11 @@ public class UserController {
         // request.getSession().removeAttribute("code");
         return Result.success("退出登录成功");
     }
+
+    public Result update(User user){
+        userService.update(user);
+        return Result.success();
+    }
+
+
 }

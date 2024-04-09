@@ -7,6 +7,7 @@ import com.cwk.pojo.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -30,4 +31,8 @@ public interface UserMapper {
 
     @Select("select * from gps.users where id = #{userId};")
     User queryByUserId(Long userId);
+
+    @AutoFill(value = OperationType.INSERT)
+    @Update("")
+    void update(User user);
 }
