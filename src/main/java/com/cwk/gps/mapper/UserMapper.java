@@ -20,9 +20,6 @@ public interface UserMapper {
     User getByUsername(String username);
 
     @AutoFill(value = OperationType.INSERT)
-    @Insert("insert into gps.users (username, email, password, logo)" +
-            "values" +
-            "(#{username},#{email},#{password}, #{logo})")
     void save(User user);
 
 
@@ -32,7 +29,6 @@ public interface UserMapper {
     @Select("select * from gps.users where id = #{userId};")
     User queryByUserId(Long userId);
 
-    @AutoFill(value = OperationType.INSERT)
-    @Update("")
+    @AutoFill(value = OperationType.UPDATE)
     void update(User user);
 }

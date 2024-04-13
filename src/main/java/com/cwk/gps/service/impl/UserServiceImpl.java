@@ -1,6 +1,7 @@
 package com.cwk.gps.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.UserMapper;
 import com.cwk.gps.service.UserService;
 import com.cwk.pojo.entity.User;
@@ -25,6 +26,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(User user) {
+        if (user.getId() == null){
+            user.setId(BaseContext.getCurrentId());
+        }
         userMapper.update(user);
     }
 }

@@ -9,9 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLoginDTO {
+public class UserLoginBypwDTO {
     //邮箱
     private String email;
-    //验证码·
-    private String code;
+
+    //密码
+    private String password;
+
 }
