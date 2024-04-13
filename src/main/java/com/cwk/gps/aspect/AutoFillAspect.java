@@ -49,7 +49,7 @@ public class AutoFillAspect {
         Long currentId = BaseContext.getCurrentId();
 
         //根据当前不同的操作类型，为对应的属性通过反射来赋值
-        if(operationType == operationType.INSERT){
+        if(operationType == OperationType.INSERT_ADMIN){
             try {
                 Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
                 Method setCreateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
@@ -65,13 +65,31 @@ public class AutoFillAspect {
                 e.printStackTrace();
             }
 
-        }else if (operationType == operationType.UPDATE){
+        }else if (operationType == OperationType.UPDATE_ADMIN){
             try {
                 Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
                 Method setUpdateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);
                 //通过反射为对象属性赋值
                 setUpdateTime.invoke(entity,now);
                 setUpdateUser.invoke(entity,currentId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (operationType == OperationType.INSERT_USER){
+            try {
+                Method setCreateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
+                Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
+                //通过反射为对象属性赋值
+                setCreateTime.invoke(entity,now);
+                setUpdateTime.invoke(entity,now);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if (operationType == OperationType.UPDATE_USER){
+            try {
+                Method setUpdateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
+                //通过反射为对象属性赋值
+                setUpdateTime.invoke(entity,now);
             } catch (Exception e) {
                 e.printStackTrace();
             }

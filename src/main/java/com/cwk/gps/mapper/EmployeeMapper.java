@@ -18,7 +18,7 @@ public interface EmployeeMapper {
     @Insert("insert into employee (name, username, password, phone, level, create_time, update_time, status, create_user, update_user)" +
             "values" +
             "(#{name},#{username},#{password},#{phone},#{level},#{createTime},#{updateTime},#{status},#{createUser},#{updateUser})")
-    @AutoFill(value = OperationType.INSERT)
+    @AutoFill(value = OperationType.INSERT_ADMIN)
     void insert(Employee employee);
 
     /**
@@ -28,7 +28,7 @@ public interface EmployeeMapper {
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
-    @AutoFill(value = OperationType.UPDATE)
+    @AutoFill(value = OperationType.UPDATE_ADMIN)
     void update(Employee employee);
 
     @Select("select * from employee where id = #{id}")
