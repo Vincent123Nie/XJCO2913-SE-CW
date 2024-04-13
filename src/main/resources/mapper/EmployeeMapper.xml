@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cwk.gps.mapper.EmployeeMapper">
+
     <select id="pageQuery" resultType="com.cwk.pojo.entity.Employee">
         select * from employee
         <where>
@@ -9,7 +10,7 @@
                 and name like concat('%',#{name},'%')
             </if>
         </where>
-        order by create_time desc
+        order by create_time asc
     </select>
 
     <update id="update" parameterType="com.cwk.pojo.entity.Employee">
@@ -27,11 +28,14 @@
             <if test="phone!=null">
                 phone = #{phone},
             </if>
-            <if test="email!=null">
-                email = #{email},
-            </if>
             <if test="updateTime!=null">
-                update_Time = #{updateTime},
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser!=null">
+                update_user = #{updateUser},
+            </if>
+            <if test="level!=null">
+                level = #{level},
             </if>
             <if test="status!=null">
                 status = #{status},

@@ -1,12 +1,12 @@
 package com.cwk.gps.service.impl;
 
+import com.cwk.gps.annotation.LevelCheck;
 import com.cwk.pojo.dto.EmployeePageQueryDTO;
 import com.cwk.pojo.entity.Employee;
 import com.cwk.exception.AccountLockedException;
 import com.cwk.exception.AccountNotFoundException;
 import com.cwk.exception.PasswordErrorException;
 import com.cwk.gps.constant.MessageConstant;
-import com.cwk.gps.constant.PasswordConstant;
 import com.cwk.gps.constant.StatusConstant;
 import com.cwk.gps.mapper.EmployeeMapper;
 import com.cwk.gps.result.PageResult;
@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,15 +56,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee1;
     }
 
-    @Override
+    @LevelCheck
     public void save(Employee employee) {
 
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        //设置账号的状态，默认正常状态 1表示正常 0表示锁定
+        //设置账号的状态，0表示锁定，1表示启用
         employee.setStatus(StatusConstant.ENABLE);
-        //设置密码，默认密码123456
-        employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
+        //设置密码md5
+        employee.setPassword(DigestUtils.md5DigestAsHex(employee.getPassword().getBytes()));
 
         employeeMapper.insert(employee);
     }
@@ -90,7 +87,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @param status
      * @param id
      */
-    @Override
+    @LevelCheck
     public void startOrStop(Integer status, Long id) {
         Employee employee = Employee.builder()
                 .status(status)
@@ -115,9 +112,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * 编辑员工信息
      * @param employeeDTO
      */
-    @Override
+    @LevelCheck
     public void update(Employee employeeDTO) {
-
         employeeMapper.update(employeeDTO);
     }
 }

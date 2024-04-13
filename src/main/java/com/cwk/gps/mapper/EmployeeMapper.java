@@ -12,12 +12,13 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface EmployeeMapper {
 
-    @Select("select * from gps.employee where username = #{username};")
+    @Select("select * from employee where username = #{username}")
     Employee getByUsername(String username);
 
-    @Insert("insert into gps.employee (name, username, email, password, phone, create_time, update_time, status)" +
+    @Insert("insert into employee (name, username, password, phone, level, create_time, update_time, status, create_user, update_user)" +
             "values" +
-            "(#{name},#{username},#{email},#{password},#{phone},#{createTime},#{updateTime},#{status})")
+            "(#{name},#{username},#{password},#{phone},#{level},#{createTime},#{updateTime},#{status},#{createUser},#{updateUser})")
+    @AutoFill(value = OperationType.INSERT)
     void insert(Employee employee);
 
     /**
@@ -30,6 +31,6 @@ public interface EmployeeMapper {
     @AutoFill(value = OperationType.UPDATE)
     void update(Employee employee);
 
-    @Select("select * from gps.employee where id = #{id}")
+    @Select("select * from employee where id = #{id}")
     Employee getById(Long id);
 }

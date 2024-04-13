@@ -15,13 +15,11 @@ import java.time.LocalDateTime;
 public class Employee implements Serializable {
     private Long id;
 
-    //姓名
+    //用户名
     private String username;
 
+    //名字
     private String name;
-
-    //邮箱
-    private String email;
 
     //密码
     private String password;
@@ -29,6 +27,10 @@ public class Employee implements Serializable {
     //手机号
     private String phone;
 
+    //员工权限
+    private Integer level;
+
+    //状态
     private Integer status;
 
     //注册时间
@@ -36,5 +38,11 @@ public class Employee implements Serializable {
 
     //更新时间
     private LocalDateTime updateTime;
+
+    //创建者
+    private Long createUser;
+
+    //更新者
+    private Long updateUser;
 
 }

@@ -1,6 +1,7 @@
 package com.cwk.gps.config;
 
 
+import com.cwk.gps.interceptor.JwtTokenAdminInterceptor;
 import com.cwk.gps.interceptor.JwtTokenUserInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,9 @@ import java.util.List;
 @Slf4j
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
-//    @Autowired
-//    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    @Autowired
+    private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+
     @Autowired
     private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
@@ -34,9 +36,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
      */
     protected void addInterceptors(InterceptorRegistry registry) {
         log.info("开始注册自定义拦截器...");
-//        registry.addInterceptor(jwtTokenAdminInterceptor)
-//                .addPathPatterns("/admin/**")
-//                .excludePathPatterns("/admin/employee/login");
+        registry.addInterceptor(jwtTokenAdminInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/employee/login");
 
         registry.addInterceptor(jwtTokenUserInterceptor)
                 .addPathPatterns("/user/**")
