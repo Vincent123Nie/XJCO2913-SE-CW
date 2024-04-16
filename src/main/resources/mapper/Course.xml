@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cwk.gps.mapper.CourseMapper">
+
+    <update id="update" parameterType="com.cwk.pojo.entity.Course">
+        update course
+        <set>
+            <if test="name!=null">
+                name = #{name},
+            </if>
+            <if test="picture!=null">
+                picture = #{picture},
+            </if>
+            <if test="resource!=null">
+                resource = #{resource},
+            </if>
+            <if test="time!=null">
+                time = #{time},
+            </if>
+            <if test="calorie!=null">
+                calorie = #{calorie},
+            </if>
+            <if test="description!=null">
+                description = #{description},
+            </if>
+            <if test="updateTime!=null">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser!=null">
+                update_user = #{updateUser},
+            </if>
+        </set>
+            where id = #{id}
+    </update>
+
+    <select id="pageQuery" resultType="com.cwk.pojo.entity.Course">
+        select * from course
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+</mapper>

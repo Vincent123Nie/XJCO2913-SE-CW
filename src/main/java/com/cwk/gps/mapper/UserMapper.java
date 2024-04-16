@@ -19,17 +19,17 @@ public interface UserMapper {
      * @param username
      * @return
      */
-    @Select("select * from gps.users where username = #{username};")
+    @Select("select * from gps.user where username = #{username};")
     User getByUsername(String username);
 
     @AutoFill(value = OperationType.INSERT_USER)
     void save(User user);
 
 
-    @Select("select * from gps.users where email = #{email};")
+    @Select("select * from user where email = #{email};")
     User getOne(String email);
 
-    @Select("select * from gps.users where id = #{userId};")
+    @Select("select * from gps.user where id = #{userId};")
     User queryByUserId(Long userId);
 
     @AutoFill(value = OperationType.UPDATE_USER)
