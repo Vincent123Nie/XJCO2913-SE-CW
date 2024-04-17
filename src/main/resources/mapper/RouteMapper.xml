@@ -25,6 +25,9 @@
             <if test="time != null">
                 time = #{time},
             </if>
+            <if test="calorie != null">
+                calorie = #{calorie},
+            </if>
             <if test="speed != null">
                 speed = #{speed},
             </if>

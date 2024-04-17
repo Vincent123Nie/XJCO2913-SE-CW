@@ -4,12 +4,12 @@
 <mapper namespace="com.cwk.gps.mapper.UserMapper">
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into gps.users(username, email, password, logo)
+        insert into gps.user(username, email, password, avatar)
             values
-        (#{username},#{email},#{password},#{logo})
+        (#{username},#{email},#{password},#{avatar})
     </insert>
     <update id="update">
-        update gps.users
+        update gps.user
         <set>
             <if test="username != null">
                 username = #{username},
@@ -20,8 +20,8 @@
             <if test="password != null">
                 password = #{password},
             </if>
-            <if test="logo != null">
-                logo = #{logo},
+            <if test="avatar != null">
+                avatar = #{avatar},
             </if>
         </set>
         where id = #{id}

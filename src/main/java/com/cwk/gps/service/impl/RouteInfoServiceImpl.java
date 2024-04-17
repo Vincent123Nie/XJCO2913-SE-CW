@@ -32,7 +32,7 @@ public class RouteInfoServiceImpl implements RouteInfoService {
     private LocationPointMapper locationPointMapper;
 
     /**
-     * 更新路线数据，查询鹰眼服务中的轨迹数据，更新到Mongodb中
+     * 更新路线数据，查询鹰眼服务中的轨迹数据更新到数据库中
      *
      * @param routeId
      * @param userId
@@ -65,6 +65,15 @@ public class RouteInfoServiceImpl implements RouteInfoService {
             time = "00:00";
         }
 
+        Double calorie;
+        try {
+            long timeDifference = routeEntity.getEndPoint().getLocTime() - routeEntity.getStartPoint().getLocTime();
+            Double totalhours = timeDifference/3600.0;
+            calorie = 300 * totalhours;
+        }catch (Exception e) {
+            calorie = 0.00;
+        }
+
         //计算平均速度，每个点速度总和 / 轨迹点总数
         Double speed;
         try {
@@ -80,6 +89,7 @@ public class RouteInfoServiceImpl implements RouteInfoService {
         route.setLocLongitude(routeEntity.getStartPoint().getLongitude());
         route.setTime(time);
         route.setSpeed(speed);
+        route.setCalorie(calorie);
         log.info("测试-{}", route);
         routeMapper.update(route);
         //更新LocaltionPoint表中的信息

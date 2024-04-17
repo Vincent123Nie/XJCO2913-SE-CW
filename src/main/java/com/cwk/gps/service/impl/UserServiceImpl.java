@@ -5,7 +5,6 @@ import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.UserMapper;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.UserService;
-import com.cwk.pojo.dto.UserPageQueryDTO;
 import com.cwk.pojo.entity.Employee;
 import com.cwk.pojo.entity.User;
 import com.github.pagehelper.Page;
@@ -38,13 +37,4 @@ public class UserServiceImpl implements UserService {
         userMapper.update(user);
     }
 
-    public PageResult pageQuery(UserPageQueryDTO userPageQueryDTO) {
-        //开始分页查询
-        PageHelper.startPage(userPageQueryDTO.getPage(),userPageQueryDTO.getPageSize());
-
-        Page<Employee> page = userMapper.pageQuery(userPageQueryDTO);
-        long total = page.getTotal();
-        List<Employee> records = page.getResult();
-        return new PageResult(total, records);
-    }
 }

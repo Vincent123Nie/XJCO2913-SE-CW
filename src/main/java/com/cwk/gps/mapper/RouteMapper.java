@@ -38,4 +38,7 @@ public interface RouteMapper {
 
     @Select("select * from gps.route where userId = #{userId} and route.endTime between #{minTime} and #{maxTime}")
     List<Route> queryRouteListByDate(Long userId, Long minDate, Long maxDate);
+    @Select("select * from gps.route where userId = #{userId}")
+    List<Route> queryByUserId(Long userId);
 }
+

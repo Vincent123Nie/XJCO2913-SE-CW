@@ -28,6 +28,7 @@ public class Route {
     private Double locLongitude;
     private Double routeDistance;
     private Integer status; //状态，1：开始，0：已结束
-
+    //添加新属性，卡路里
+    private Double calorie;
 
 }

@@ -3,6 +3,7 @@ package com.cwk.gps.controller.user;
 import com.cwk.gps.constant.JwtClaimsConstant;
 import com.cwk.gps.properties.JwtProperties;
 import com.cwk.gps.result.Result;
+import com.cwk.gps.service.RouteService;
 import com.cwk.gps.service.UserService;
 import com.cwk.gps.utils.JwtUtil;
 import com.cwk.gps.utils.SendEmailUtils;
@@ -11,6 +12,7 @@ import com.cwk.pojo.dto.UserLoginBypwDTO;
 import com.cwk.pojo.dto.UserLoginDTO;
 import com.cwk.pojo.dto.UserretriveDTO;
 import com.cwk.pojo.entity.User;
+import com.cwk.pojo.vo.TotalMotionVo;
 import com.cwk.pojo.vo.UserVo;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,6 +32,8 @@ import java.util.concurrent.TimeUnit;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private RouteService routeService;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -115,11 +119,10 @@ public class UserController {
         if (user == null) {
             return Result.error("用户不存在");
         } else {
-            if (user.getPassword() != userLoginBypwDTO.getPassword()){
-                Result.error("密码错误");
+            if (!user.getPassword().equals(userLoginBypwDTO.getPassword())){
+                return Result.error("密码错误");
             }
         }
-
         //为用户生成jwt令牌
         Map<String, Object> claims = new HashMap<>();
         claims.put(JwtClaimsConstant.USER_ID, user.getId());
@@ -189,5 +192,15 @@ public class UserController {
         return Result.success();
     }
 
-
+    /**
+     * 查询我的运动信息
+     *
+     * @param
+     * @return
+     */
+    @GetMapping("/motioninfo")
+    public Result<TotalMotionVo> queryMyInfo() {
+        TotalMotionVo totalMotionVo = routeService.queryUserMotionInfo();
+        return Result.success(totalMotionVo);
+    }
 }

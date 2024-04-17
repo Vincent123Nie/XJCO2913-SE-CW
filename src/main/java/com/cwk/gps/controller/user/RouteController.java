@@ -1,12 +1,12 @@
 package com.cwk.gps.controller.user;
 
 
-import cn.hutool.core.map.MapUtil;
 import com.cwk.context.BaseContext;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.RouteService;
 import com.cwk.gps.utils.DistanceUtils;
+import com.cwk.pojo.dto.QueryHistoryByDateDTO;
 import com.cwk.pojo.dto.QueryHistoryDTO;
 import com.cwk.pojo.entity.Route;
 import com.cwk.pojo.vo.NearRouteVo;
@@ -167,15 +167,5 @@ public class RouteController {
         return Result.success(pageResult);
     }
 
-//    /**
-//     * 历史路线(按照日期显示)
-//     *
-//     * @return
-//     */
-//    @GetMapping("history/date")
-//    public Result<PageResult> queryHistoryRouteByDate(@RequestBody QueryHistoryDTO queryHistoryDTO) {
-//        PageResult pageResult = routeService.queryHistoryRouteByDate(queryHistoryDTO);
-//        return Result.success(pageResult);
-//    }
 
 }

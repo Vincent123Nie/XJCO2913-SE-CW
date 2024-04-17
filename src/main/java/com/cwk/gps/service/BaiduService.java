@@ -109,7 +109,7 @@ public class BaiduService {
                 .put("latitude", runParamVo.getLatitude()) //纬度
                 .put("longitude", runParamVo.getLongitude()) //经度
                 .put("loc_time", System.currentTimeMillis() / 1000) //定位时间戳，精确到秒
-                .put("coord_type_input", "gcj02") //gcj02 坐标类型 app中使用的是腾讯地图 bd09ll百度地图
+                .put("coord_type_input", "bd09ll") //gcj02 坐标类型 app中使用的是腾讯地图 bd09ll百度地图
                 .put("speed", runParamVo.getSpeed()).build();//速度
 
         return this.baiduApiService.execute(url, Method.POST,
@@ -137,7 +137,7 @@ public class BaiduService {
                 .put("start_time", startTime) //开始时间
                 .put("end_time", endTime) //结束时间
                 .put("is_processed", 1) //是否返回纠偏后轨迹
-                .put("coord_type_output", "gcj02") //返回的坐标类型
+                .put("coord_type_output", "bd09ll") //返回的坐标类型
                 .build();
 
         return this.baiduApiService.execute(url, Method.GET, paramMap, response -> {

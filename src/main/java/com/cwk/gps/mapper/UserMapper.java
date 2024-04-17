@@ -1,16 +1,10 @@
 package com.cwk.gps.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.cwk.enumeration.OperationType;
 import com.cwk.gps.annotation.AutoFill;
-import com.cwk.pojo.dto.UserPageQueryDTO;
-import com.cwk.pojo.entity.Employee;
 import com.cwk.pojo.entity.User;
-import com.github.pagehelper.Page;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -26,7 +20,7 @@ public interface UserMapper {
     void save(User user);
 
 
-    @Select("select * from user where email = #{email};")
+    @Select("select * from gps.user where email = #{email};")
     User getOne(String email);
 
     @Select("select * from gps.user where id = #{userId};")
@@ -35,7 +29,4 @@ public interface UserMapper {
     @AutoFill(value = OperationType.UPDATE_USER)
     void update(User user);
 
-    //TODO 用户分页查询
-    @Select("")
-    Page<Employee> pageQuery(UserPageQueryDTO userPageQueryDTO);
 }

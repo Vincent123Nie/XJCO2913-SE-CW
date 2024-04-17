@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/admin/employee")
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin(origins = "http://localhost:8081")
 @Slf4j
 public class EmployeeController {
     @Autowired

@@ -2,10 +2,12 @@ package com.cwk.gps.service;
 
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
+import com.cwk.pojo.dto.QueryHistoryByDateDTO;
 import com.cwk.pojo.dto.QueryHistoryDTO;
 import com.cwk.pojo.entity.Route;
 import com.cwk.pojo.vo.NearRouteVo;
 import com.cwk.pojo.vo.NearUsersVo;
+import com.cwk.pojo.vo.TotalMotionVo;
 
 import java.util.List;
 
@@ -28,7 +30,5 @@ public interface RouteService {
 
     PageResult queryHistoryRoute(QueryHistoryDTO queryHistoryDTO);
 
-    public List<Route> queryRouteListByDate(Long userId, Long minDate, Long maxDate);
-
-    public Integer queryRouteCountByDate(Long userId, Long minTime, Long maxTime);
+    TotalMotionVo queryUserMotionInfo();
 }

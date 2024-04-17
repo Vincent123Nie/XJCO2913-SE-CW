@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String password;
 
     //手机号
-    private String logo;
+    private String avatar;
 
     //注册时间
     private LocalDateTime createTime;

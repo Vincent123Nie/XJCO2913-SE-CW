@@ -5,16 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * 用于附近的人响应数据结构
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NearUserVo {
-
-    private Long userId; //用户id
-    private String avatar; //头像
-    private String userName; //昵称
+public class MotionVo {
+    //结束时间 yyyy-MM-dd
+    private String date;
+    //运动花费时间
+    private String time;
+    //运动消耗的卡路里
+    private Double carlorie;
 }

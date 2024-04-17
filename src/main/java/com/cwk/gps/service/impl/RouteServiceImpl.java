@@ -14,20 +14,25 @@ import com.cwk.gps.service.BaiduService;
 import com.cwk.gps.service.RouteInfoService;
 import com.cwk.gps.service.RouteService;
 import com.cwk.gps.utils.DistanceUtils;
+import com.cwk.gps.utils.TimeUtils;
+import com.cwk.pojo.dto.QueryHistoryByDateDTO;
 import com.cwk.pojo.dto.QueryHistoryDTO;
 import com.cwk.pojo.entity.Route;
 import com.cwk.pojo.entity.RunRoute;
 import com.cwk.pojo.entity.User;
-import com.cwk.pojo.vo.NearRouteVo;
-import com.cwk.pojo.vo.NearUserVo;
-import com.cwk.pojo.vo.NearUsersVo;
-import com.cwk.pojo.vo.RouteVo;
+import com.cwk.pojo.vo.*;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -203,7 +208,7 @@ public class RouteServiceImpl implements RouteService {
         for (RunRoute list : lists) {
             User user = userMapper.queryByUserId(list.getUserId());
             NearUserVo userVo = new NearUserVo();
-            userVo.setLogo(user.getLogo());
+            userVo.setAvatar(user.getAvatar());
             userVo.setUserName(user.getUsername());
             userVo.setUserId(user.getId());
             nearUserVoList.add(userVo);
@@ -256,17 +261,45 @@ public class RouteServiceImpl implements RouteService {
         }
     }
 
+
     /**
-     * 按照时间范围查询路线（包含时间边界）
-     *
-     * @param userId
-     * @param minDate
-     * @param maxDate
+     * 查询用户的运动信息
      * @return
      */
-    public List<Route> queryRouteListByDate(Long userId, Long minDate, Long maxDate) {
-        List<Route> list = routeMapper.queryRouteListByDate(userId, minDate, maxDate);
-        return list;
+    public TotalMotionVo queryUserMotionInfo() {
+        Long userId = BaseContext.getCurrentId();
+        log.info("用户id:{}",userId);
+        TotalMotionVo totalMotionVo = new TotalMotionVo();
+        List<Route> list = routeMapper.queryByUserId(userId);
+        log.info("用户运动路线：{}",list);
+        Double totalDistance = 0.0;
+        Long t_Time = 0L;
+        List<MotionVo> M_list = new ArrayList<>();
+        for (Route route : list) {
+            totalDistance += (route.getDistance()/1000);
+            String[] parts = route.getTime().split(":");
+            int minutes = Integer.parseInt(parts[0]);
+            int seconds = Integer.parseInt(parts[1]);
+            t_Time += minutes * 60 + seconds;
+            MotionVo motionVo = new MotionVo();
+            motionVo.setTime(route.getTime());
+            motionVo.setCarlorie(route.getCalorie());
+            Long initaldate = route.getEndTime();
+            // 将时间戳转换为 Instant
+            Instant instant = Instant.ofEpochMilli(initaldate);
+            // 使用默认时区将 Instant 转换为 LocalDate
+            LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            // 定义日期格式
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            // 格式化日期
+            String formattedDate = localDate.format(formatter);
+            motionVo.setDate(formattedDate);
+            M_list.add(motionVo);
+        }
+        String totalTime = TimeUtils.formatTime(t_Time);
+        totalMotionVo.setTotalDistance(totalDistance);
+        totalMotionVo.setTotalTime(totalTime);
+        totalMotionVo.setList(M_list);
+        return totalMotionVo;
     }
-
 }

@@ -13,6 +13,7 @@ import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.EmployeeService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -20,6 +21,7 @@ import org.springframework.util.DigestUtils;
 import java.util.List;
 
 @Service
+@Slf4j
 public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
@@ -74,9 +76,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         //开始分页查询
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
-
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        log.info("page:{}" ,page);
         long total = page.getTotal();
+
         List<Employee> records = page.getResult();
         return new PageResult(total, records);
     }
