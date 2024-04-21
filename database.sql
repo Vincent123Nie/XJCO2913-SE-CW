@@ -33,6 +33,7 @@ CREATE TABLE activity (
                         create_user BIGINT DEFAULT '1',
                         update_user BIGINT DEFAULT '1'
 );
+INSERT INTO activity (name, picture, max_participant, start_time, end_time) VALUES ('activity1','picture1',50,'2024-04-14T00:00:00','2024-04-15T00:00:00');
 
 DROP TABLE IF EXISTS activity_user;
 CREATE TABLE activity_user (
@@ -44,17 +45,40 @@ CREATE TABLE activity_user (
 
 DROP TABLE IF EXISTS course;
 CREATE TABLE course (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE,
-    picture VARCHAR(255) NOT NULL,
-    resource VARCHAR(255) NOT NULL,
-    time INT NOT NULL,
-    calorie INT NOT NULL,
-    description TEXT,
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    create_user BIGINT DEFAULT '1',
-    update_user BIGINT DEFAULT '1'
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        name VARCHAR(255) NOT NULL UNIQUE,
+                        picture VARCHAR(255) NOT NULL,
+                        resource VARCHAR(255) NOT NULL,
+                        type VARCHAR(255),
+                        duration INT NOT NULL,
+                        calorie INT NOT NULL,
+                        description TEXT,
+                        create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        create_user BIGINT DEFAULT '1',
+                        update_user BIGINT DEFAULT '1'
+);
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course1', 'picture1', 'resource1', 'Yoga', '10', '50');
+
+
+DROP TABLE IF EXISTS `order`;
+CREATE TABLE `order` (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        user_id BIGINT NOT NULL,
+                        type INT NOT NULL,
+                        price INT NOT NULL,
+                        status INT NOT NULL,
+                        create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+INSERT INTO `order` (user_id, type, price, status) VALUES (1, 1, 30, 1);
+
+DROP TABLE IF EXISTS revenue;
+CREATE TABLE revenue (
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        order_id BIGINT NOT NULL,
+                        money INT NOT NULL,
+                        time DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS user;
@@ -67,6 +91,8 @@ CREATE TABLE user (
                       create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                       update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+INSERT INTO user (username, email, password, avatar) VALUES ('user1', 'user@email.com', MD5('123456'), 'http://avatar.jpg');
+
 
 DROP TABLE IF EXISTS route;
 CREATE TABLE route (

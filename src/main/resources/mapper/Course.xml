@@ -15,8 +15,11 @@
             <if test="resource!=null">
                 resource = #{resource},
             </if>
-            <if test="time!=null">
-                time = #{time},
+            <if test="type!=null">
+                type = #{type},
+            </if>
+            <if test="duration!=null">
+                duration = #{duration},
             </if>
             <if test="calorie!=null">
                 calorie = #{calorie},

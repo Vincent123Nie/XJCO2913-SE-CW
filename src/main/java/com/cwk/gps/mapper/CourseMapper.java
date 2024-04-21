@@ -13,9 +13,9 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface CourseMapper {
 
-    @Insert("insert into course (name, picture, resource, time, calorie, description, create_time, update_time, create_user, update_user)" +
+    @Insert("insert into course (name, picture, resource, type, duration, calorie, description, create_time, update_time, create_user, update_user)" +
             "values" +
-            "(#{name}, #{picture}, #{resource}, #{time}, #{calorie}, #{description}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+            "(#{name}, #{picture}, #{resource}, #{type}, #{duration}, #{calorie}, #{description}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     @AutoFill(OperationType.INSERT_ADMIN)
     void save(Course course);
 

@@ -40,7 +40,7 @@ public class CourseController {
     }
 
     /**
-     * 根据Id查询活动信息
+     * 根据Id查询活课程信息
      * @param id
      * @return
      */

@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Course {
+public class Course implements Serializable {
 
     private Long id;
 
@@ -21,7 +22,10 @@ public class Course {
 
     private String resource;
 
-    private Integer time;
+    //Weight-losing Muscle-building Rehabilitation Yoga Dancing
+    private String type;
+
+    private Integer duration;
 
     private Integer calorie;
 
