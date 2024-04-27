@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@RestController("adminOrderController")
 @RequestMapping("/admin/order")
 @CrossOrigin("http://localhost:8081")
 @Slf4j
@@ -24,7 +24,7 @@ public class OrderController {
         return Result.success(pageResult);
     }
 
-    @GetMapping("/status/{status}")
+    @PostMapping("/status/{status}")
     public Result completeOrCancel(@PathVariable Integer status, Long id) {
         log.info("订单完成或取消：{} {}", status, id);
         orderService.completeOrCancel(status,id);

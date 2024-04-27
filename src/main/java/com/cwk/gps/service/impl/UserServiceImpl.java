@@ -5,8 +5,10 @@ import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.UserMapper;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.UserService;
-import com.cwk.pojo.entity.Employee;
+import com.cwk.pojo.dto.UserPageQueryDTO;
 import com.cwk.pojo.entity.User;
+import com.cwk.pojo.vo.OrderVO;
+import com.cwk.pojo.vo.UserVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,17 @@ public class UserServiceImpl implements UserService {
             user.setId(BaseContext.getCurrentId());
         }
         userMapper.update(user);
+    }
+
+    @Override
+    public PageResult pageQuery(UserPageQueryDTO userPageQueryDTO) {
+        //开始分页查询
+        PageHelper.startPage(userPageQueryDTO.getPage(),userPageQueryDTO.getPageSize());
+
+        Page<User> page = userMapper.pageQuery(userPageQueryDTO);
+        long total = page.getTotal();
+        List<User> records = page.getResult();
+        return new PageResult(total, records);
     }
 
 }

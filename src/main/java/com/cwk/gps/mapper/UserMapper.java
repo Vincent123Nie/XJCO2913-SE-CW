@@ -2,7 +2,11 @@ package com.cwk.gps.mapper;
 
 import com.cwk.enumeration.OperationType;
 import com.cwk.gps.annotation.AutoFill;
+import com.cwk.pojo.dto.UserPageQueryDTO;
 import com.cwk.pojo.entity.User;
+import com.cwk.pojo.vo.OrderVO;
+import com.cwk.pojo.vo.UserVo;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -29,4 +33,5 @@ public interface UserMapper {
     @AutoFill(value = OperationType.UPDATE_USER)
     void update(User user);
 
+    Page<User> pageQuery(UserPageQueryDTO userPageQueryDTO);
 }

@@ -8,9 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 @Mapper
 public interface OrderMapper {
-
 
     Page<OrderVO> pageQuery(OrderPageQueryDTO orderPageQueryDTO);
 
@@ -19,4 +20,7 @@ public interface OrderMapper {
 
     @Select("select * from `order` where id = #{id}")
     Order getById(Long id);
+
+    @Select("select * from `order` where status = #{waiting}")
+    List<Order> getWaitingOrders(Integer waiting);
 }

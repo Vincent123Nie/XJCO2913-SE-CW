@@ -1,10 +1,12 @@
 package com.cwk.gps.service.impl;
 
+import com.cwk.gps.mapper.MemberMapper;
 import com.cwk.gps.mapper.OrderMapper;
 import com.cwk.gps.mapper.RevenueMapper;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.OrderService;
 import com.cwk.pojo.dto.OrderPageQueryDTO;
+import com.cwk.pojo.entity.Member;
 import com.cwk.pojo.entity.Order;
 import com.cwk.pojo.entity.Revenue;
 import com.cwk.pojo.vo.OrderVO;
@@ -24,6 +26,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderMapper orderMapper;
     @Autowired
     private RevenueMapper revenueMapper;
+    @Autowired
+    private MemberMapper memberMapper;
 
 
     @Override
@@ -40,8 +44,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void completeOrCancel(Integer status ,Long id) {
-        //完成订单，向收入表中插入数据，更新会员表数据
-        if (status == Order.COMPLETE) {
+        Order order = orderMapper.getById(id);
+        Long userId = order.getUserId();
+        Integer type = order.getType();
+        if (order.getStatus() == status) {
+            return;
+        } else if (status == Order.COMPLETE) {
+            //完成订单，向收入表中插入数据，更新会员表数据
             orderMapper.updateStatusWithId(status, id);
 
             Revenue revenue = Revenue.builder()
@@ -51,16 +60,26 @@ public class OrderServiceImpl implements OrderService {
                     .build();
             revenueMapper.save(revenue);
 
+            Member member = memberMapper.getByUserId(userId);
 
-        }
+            if (member == null) {
+                //新增会员
+                memberMapper.save(userId,type);
+            } else {
+                //增加会员时长
+                memberMapper.increase(userId,type);
+            }
 
-        //取消订单，从收入表中删除数据，更新会员表数据
-        if (status == Order.CANCEL) {
+        } else if (status == Order.CANCEL) {
+            //取消订单
             orderMapper.updateStatusWithId(status, id);
 
-            revenueMapper.deleteByOrderId(id);
-
-
+            //如果订单原本是完成状态，从收入表中删除数据，更新会员表数据
+            if (order.getStatus() == Order.COMPLETE) {
+                revenueMapper.deleteByOrderId(id);
+                //减少会员时长
+                memberMapper.decrease(userId, type);
+            }
         }
 
     }

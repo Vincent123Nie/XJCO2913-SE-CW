@@ -26,4 +26,14 @@
         </set>
         where id = #{id}
     </update>
+
+    <select id="pageQuery" resultType="com.cwk.pojo.entity.User">
+        select * from user
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by create_time desc
+    </select>
 </mapper>

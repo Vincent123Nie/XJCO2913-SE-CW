@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `gps` ;
+CREATE DATABASE IF NOT EXISTS `gps` ;
 USE `gps`;
 
 DROP TABLE IF EXISTS employee;
@@ -71,7 +71,7 @@ CREATE TABLE `order` (
                         create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                         update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-INSERT INTO `order` (user_id, type, price, status) VALUES (1, 1, 30, 1);
+INSERT INTO `order` (user_id, type, price, status) VALUES (1, 1, 80, 1);
 
 DROP TABLE IF EXISTS revenue;
 CREATE TABLE revenue (
@@ -84,15 +84,23 @@ CREATE TABLE revenue (
 DROP TABLE IF EXISTS user;
 CREATE TABLE user (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                      username VARCHAR(255) NOT NULL UNIQUE,
+                      username VARCHAR(255) UNIQUE,
                       email VARCHAR(255) NOT NULL UNIQUE,
-                      password CHAR(255) NOT NULL,
-                      avatar VARCHAR(255) NOT NULL,
+                      password CHAR(255),
+                      avatar VARCHAR(255),
                       create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
                       update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 INSERT INTO user (username, email, password, avatar) VALUES ('user1', 'user@email.com', MD5('123456'), 'http://avatar.jpg');
 
+DROP TABLE IF EXISTS member;
+CREATE TABLE member(
+                       id INT AUTO_INCREMENT PRIMARY KEY,
+                       user_id INT NOT NULL,
+                       registration_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+                       expiration_date DATETIME
+);
+INSERT INTO member (user_id, Expiration_date) VALUES (1, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 DAY));
 
 DROP TABLE IF EXISTS route;
 CREATE TABLE route (
