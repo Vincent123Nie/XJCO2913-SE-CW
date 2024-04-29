@@ -102,6 +102,38 @@ CREATE TABLE member(
 );
 INSERT INTO member (user_id, Expiration_date) VALUES (1, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 30 DAY));
 
+DROP TABLE IF EXISTS admin_log;
+CREATE TABLE admin_log(
+                        id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                        user_id BIGINT NOT NULL,
+                        method VARCHAR(255) NOT NULL,
+                        object_id BIGINT,
+                        parameter VARCHAR(255),
+                        time DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS post;
+CREATE TABLE post(
+                     post_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                     userId BIGINT NOT NULL,
+                     title VARCHAR(255) NOT NULL,
+                     content TEXT NOT NULL,
+                     create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                     update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+INSERT INTO post (userId, title, content) VALUES (1, 'post1', 'content1');
+
+DROP TABLE IF EXISTS comment;
+CREATE TABLE comment (
+                         comment_id INT AUTO_INCREMENT PRIMARY KEY,
+                         post_id INT NOT NULL,
+                         user_id INT NOT NULL,
+                         content TEXT NOT NULL,
+                         create_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+                         update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+INSERT INTO comment (post_id, user_id, content) VALUES (1, 1, 'content1');
+
 DROP TABLE IF EXISTS route;
 CREATE TABLE route (
                        id BIGINT AUTO_INCREMENT PRIMARY KEY,

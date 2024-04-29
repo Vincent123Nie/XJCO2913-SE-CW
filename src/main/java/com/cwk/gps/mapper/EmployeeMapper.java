@@ -15,9 +15,6 @@ public interface EmployeeMapper {
     @Select("select * from employee where username = #{username}")
     Employee getByUsername(String username);
 
-    @Insert("insert into employee (name, username, password, phone, level, create_time, update_time, status, create_user, update_user)" +
-            "values" +
-            "(#{name},#{username},#{password},#{phone},#{level},#{createTime},#{updateTime},#{status},#{createUser},#{updateUser})")
     @AutoFill(value = OperationType.INSERT_ADMIN)
     void insert(Employee employee);
 

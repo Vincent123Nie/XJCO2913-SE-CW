@@ -1,5 +1,6 @@
 package com.cwk.gps.controller.admin;
 
+import com.cwk.gps.annotation.Log;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.CourseService;
@@ -19,6 +20,7 @@ public class CourseController {
     private CourseService courseService;
 
     @PostMapping
+    @Log(method = "Add course")
     public Result save(@RequestBody Course course) {
         log.info("新增课程：{}",course);
         courseService.save(course);
@@ -33,6 +35,7 @@ public class CourseController {
     }
 
     @DeleteMapping
+    @Log(method = "Delete course")
     public Result delete(Long id){
         log.info("删除课程：{}", id);
         courseService.delete(id);
@@ -51,6 +54,7 @@ public class CourseController {
     }
 
     @PutMapping
+    @Log(method = "Modify course")
     public Result update(@RequestBody Course course){
         log.info("编辑课程信息：{}", course);
         courseService.update(course);

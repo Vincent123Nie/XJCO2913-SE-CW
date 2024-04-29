@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
         return new PageResult(total, records);
     }
 
+    @Override
+    public void delete(Long id) {
+        userMapper.delete(id);
+    }
+
 }

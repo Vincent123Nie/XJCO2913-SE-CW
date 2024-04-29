@@ -16,9 +16,6 @@ import java.util.List;
 @Mapper
 public interface ActivityMapper {
 
-    @Insert("insert into activity (name, picture, actual_participant, max_participant, start_time, end_time, status, description, create_time, update_time, create_user, update_user)" +
-            "values" +
-            "(#{name}, #{picture}, #{actualParticipant}, #{maxParticipant}, #{startTime}, #{endTime}, #{status}, #{description}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
     @AutoFill(OperationType.INSERT_ADMIN)
     void insert(Activity activity);
 

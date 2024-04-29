@@ -3,6 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cwk.gps.mapper.EmployeeMapper">
 
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into employee
+        (name, username, password, phone, level, create_time, update_time, status, create_user, update_user)
+        values
+        (#{name},#{username},#{password},#{phone},#{level},#{createTime},#{updateTime},#{status},#{createUser},#{updateUser})
+    </insert>
+
     <select id="pageQuery" resultType="com.cwk.pojo.entity.Employee">
         select * from employee
         <where>

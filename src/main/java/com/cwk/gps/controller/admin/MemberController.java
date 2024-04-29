@@ -1,5 +1,6 @@
 package com.cwk.gps.controller.admin;
 
+import com.cwk.gps.annotation.Log;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.MemberService;
@@ -27,6 +28,7 @@ public class MemberController {
     }
 
     @DeleteMapping
+    @Log(method = "Cancel member")
     public Result cancel(Long id) {
         log.info("取消会员：{}", id);
         memberService.cancel(id);

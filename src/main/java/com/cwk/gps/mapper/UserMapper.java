@@ -7,6 +7,7 @@ import com.cwk.pojo.entity.User;
 import com.cwk.pojo.vo.OrderVO;
 import com.cwk.pojo.vo.UserVo;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -34,4 +35,7 @@ public interface UserMapper {
     void update(User user);
 
     Page<User> pageQuery(UserPageQueryDTO userPageQueryDTO);
+
+    @Delete("delete from user where id = #{id}")
+    void delete(Long id);
 }

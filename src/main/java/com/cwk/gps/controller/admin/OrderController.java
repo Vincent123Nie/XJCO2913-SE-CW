@@ -1,5 +1,6 @@
 package com.cwk.gps.controller.admin;
 
+import com.cwk.gps.annotation.Log;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.OrderService;
@@ -25,6 +26,7 @@ public class OrderController {
     }
 
     @PostMapping("/status/{status}")
+    @Log(method = "Complete or cancel order")
     public Result completeOrCancel(@PathVariable Integer status, Long id) {
         log.info("订单完成或取消：{} {}", status, id);
         orderService.completeOrCancel(status,id);

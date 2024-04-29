@@ -13,4 +13,6 @@ public interface UserService {
     void update(User user);
 
     PageResult pageQuery(UserPageQueryDTO userPageQueryDTO);
+
+    void delete(Long id);
 }

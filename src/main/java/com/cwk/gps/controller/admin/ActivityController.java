@@ -1,5 +1,6 @@
 package com.cwk.gps.controller.admin;
 
+import com.cwk.gps.annotation.Log;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.ActivityService;
@@ -20,6 +21,7 @@ public class ActivityController {
     private ActivityService activityService;
 
     @PostMapping
+    @Log(method = "Add activity")
     public Result save(@RequestBody Activity activity){
         log.info("添加活动：{}",activity);
         activityService.save(activity);
@@ -34,6 +36,7 @@ public class ActivityController {
     }
 
     @DeleteMapping
+    @Log(method = "Delete activity")
     public Result delete(Long id){
         log.info("删除活动：{}", id);
         activityService.delete(id);
@@ -52,6 +55,7 @@ public class ActivityController {
     }
 
     @PutMapping
+    @Log(method = "Modify activity")
     public Result update(@RequestBody Activity activity){
         log.info("编辑活动信息：{}", activity);
         activityService.update(activity);

@@ -1,5 +1,6 @@
 package com.cwk.gps.controller.admin;
 
+import com.cwk.gps.annotation.Log;
 import com.cwk.gps.utils.JwtUtil;
 import com.cwk.pojo.dto.EmployeePageQueryDTO;
 import com.cwk.pojo.entity.Employee;
@@ -71,6 +72,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping
+    @Log(method = "Add employee")
     public Result save(@RequestBody Employee employee){
         log.info("新增员工：{}",employee);
         employeeService.save(employee);
@@ -96,6 +98,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/status/{status}")
+    @Log(method = "Enable or disable employee")
     public Result startOrStop(@PathVariable Integer status, Long id){
         log.info("启用禁用员工账号: {},{}", status, id);
         employeeService.startOrStop(status,id);
@@ -119,6 +122,7 @@ public class EmployeeController {
      * @return
      */
     @PutMapping
+    @Log(method = "Modify employee")
     public Result update(@RequestBody Employee employeeDTO){
         log.info("编辑员工信息：{}", employeeDTO);
         employeeService.update(employeeDTO);
