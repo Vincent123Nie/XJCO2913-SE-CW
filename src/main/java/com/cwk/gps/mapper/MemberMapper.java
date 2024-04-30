@@ -27,4 +27,7 @@ public interface MemberMapper {
 
     @Select("select * from member")
     List<Member> getAll();
+
+    @Select("select count(id) from member")
+    Integer getCount();
 }
