@@ -7,12 +7,14 @@ import com.cwk.pojo.dto.CoursePageQueryDTO;
 import com.cwk.pojo.entity.Course;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
@@ -47,5 +49,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void update(Course course) {
         courseMapper.update(course);
+    }
+
+    @Override
+    public List<Course> getByCategory(String str) {
+        List<Course> list = courseMapper.getByCategory(str);
+        log.info("课程：{}", list);
+        return list;
     }
 }

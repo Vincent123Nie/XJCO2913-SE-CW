@@ -4,6 +4,8 @@ import com.cwk.gps.result.PageResult;
 import com.cwk.pojo.dto.CoursePageQueryDTO;
 import com.cwk.pojo.entity.Course;
 
+import java.util.List;
+
 public interface CourseService {
 
     void save(Course course);
@@ -15,4 +17,6 @@ public interface CourseService {
     Course getById(Long id);
 
     void update(Course course);
+
+    List<Course> getByCategory(String str);
 }

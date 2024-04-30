@@ -1,5 +1,6 @@
 package com.cwk.gps.service.impl;
 
+import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.ActivityMapper;
 import com.cwk.gps.mapper.ActivityUserMapper;
 import com.cwk.gps.result.PageResult;
@@ -7,6 +8,7 @@ import com.cwk.gps.service.ActivityService;
 import com.cwk.pojo.dto.ActivityPageQueryDTO;
 import com.cwk.pojo.entity.Activity;
 import com.cwk.pojo.entity.Employee;
+import com.cwk.pojo.vo.AllActivityVo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,6 @@ public class ActivityServiceImpl implements ActivityService {
     public void delete(Long id) {
         //删除用户活动相关的数据
         activityUserMapper.deleteByActivityId(id);
-
         activityMapper.deleteById(id);
     }
 
@@ -58,6 +59,20 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public void update(Activity activity) {
         activityMapper.update(activity);
+    }
+
+    /**
+     * 查询全部活动
+     * @return
+     */
+    public List<AllActivityVo> getActivities() {
+        List<AllActivityVo> list = activityMapper.getActivities();
+        return list;
+    }
+
+    @Override
+    public void signUp(Long id) {
+        activityUserMapper.insert(id, BaseContext.getCurrentId());
     }
 
 }

@@ -10,6 +10,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface CourseMapper {
 
@@ -26,4 +28,7 @@ public interface CourseMapper {
 
     @AutoFill(OperationType.UPDATE_ADMIN)
     void update(Course course);
+
+    @Select("select * from course where type = #{str}")
+    List<Course> getByCategory(String str);
 }

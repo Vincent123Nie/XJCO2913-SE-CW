@@ -1,11 +1,13 @@
 package com.cwk.gps.service.impl;
 
+import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.MemberMapper;
 import com.cwk.gps.mapper.OrderMapper;
 import com.cwk.gps.mapper.RevenueMapper;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.OrderService;
 import com.cwk.pojo.dto.OrderPageQueryDTO;
+import com.cwk.pojo.dto.OrdersSubmitDTO;
 import com.cwk.pojo.entity.Member;
 import com.cwk.pojo.entity.Order;
 import com.cwk.pojo.entity.Revenue;
@@ -82,5 +84,16 @@ public class OrderServiceImpl implements OrderService {
             }
         }
 
+    }
+
+    @Override
+    public Long submitOrder(OrdersSubmitDTO ordersSubmitDTO) {
+        Order order = new Order();
+        order.setUserId(BaseContext.getCurrentId());
+        order.setType(ordersSubmitDTO.getType());
+        order.setPrice(ordersSubmitDTO.getPrice());
+        order.setStatus(Order.WAITING);
+        orderMapper.insert(order);
+        return order.getId();
     }
 }

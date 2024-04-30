@@ -1,6 +1,7 @@
 package com.cwk.gps.controller.user;
 
 import com.cwk.gps.constant.JwtClaimsConstant;
+import com.cwk.gps.mapper.PostMapper;
 import com.cwk.gps.properties.JwtProperties;
 import com.cwk.gps.result.Result;
 import com.cwk.gps.service.RouteService;
@@ -11,7 +12,11 @@ import com.cwk.gps.utils.ValidateCodeUtils;
 import com.cwk.pojo.dto.UserLoginBypwDTO;
 import com.cwk.pojo.dto.UserLoginDTO;
 import com.cwk.pojo.dto.UserretriveDTO;
+import com.cwk.pojo.entity.Activity;
+import com.cwk.pojo.entity.Post;
 import com.cwk.pojo.entity.User;
+import com.cwk.pojo.vo.BloggerInfoVo;
+import com.cwk.pojo.vo.IndividualCenterVo;
 import com.cwk.pojo.vo.TotalMotionVo;
 import com.cwk.pojo.vo.UserVo;
 import jakarta.annotation.Resource;
@@ -22,7 +27,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -37,6 +44,7 @@ public class UserController {
 
     @Autowired
     private JwtProperties jwtProperties;
+
     /**
      * 发送验证码
      *
@@ -203,4 +211,47 @@ public class UserController {
         TotalMotionVo totalMotionVo = routeService.queryUserMotionInfo();
         return Result.success(totalMotionVo);
     }
+
+    /**
+     * 根据ID查询别人的主页信息
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result queryOtherInfo(@PathVariable Long id){
+        BloggerInfoVo bloggerInfoVo = userService.queryOther(id);
+        return Result.success(bloggerInfoVo);
+    }
+
+    /**
+     * 个人中心
+     * @return
+     */
+    @GetMapping
+    public Result IndividualCenter(){
+        IndividualCenterVo individualCenterVo = userService.queryCenter();
+        return Result.success(individualCenterVo);
+    }
+
+    /**
+     * 查询个人发布的帖子
+     * @return
+     */
+    @GetMapping("/posts")
+    public Result queryMyPosts(){
+        List<Post> list = userService.queryMyPosts();
+        return Result.success(list);
+    }
+
+    /**
+     * 查询个人参加的活动
+     * @return
+     */
+    @GetMapping("/activity")
+    public Result queryMyActivity(){
+        List<Activity> list = userService.queryMyActivity();
+        return Result.success(list);
+    }
+
+
 }

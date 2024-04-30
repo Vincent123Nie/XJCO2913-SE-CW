@@ -5,6 +5,7 @@ import com.cwk.gps.annotation.AutoFill;
 import com.cwk.pojo.dto.ActivityPageQueryDTO;
 import com.cwk.pojo.entity.Activity;
 import com.cwk.pojo.entity.Employee;
+import com.cwk.pojo.vo.AllActivityVo;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -35,4 +36,8 @@ public interface ActivityMapper {
 
     @Select("select * from activity where id = #{id}")
     Activity getById(Long id);
+
+    @Select("select * from activity where status = 0 or status = 1")
+    List<AllActivityVo> getActivities();
+
 }

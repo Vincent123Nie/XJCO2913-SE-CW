@@ -12,24 +12,12 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User implements Serializable {
+public class FriendShip implements Serializable {
     private Long id;
 
-    //姓名
-    private String username;
+    private Long userId;
 
-    //邮箱
-    private String email;
+    private Long friendId;
 
-    //密码
-    private String password;
-
-    //头像
-    private String avatar;
-
-    //注册时间
     private LocalDateTime createTime;
-
-    //更新时间
-    private LocalDateTime updateTime;
 }

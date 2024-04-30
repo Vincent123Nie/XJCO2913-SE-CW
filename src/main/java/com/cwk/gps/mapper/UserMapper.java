@@ -33,6 +33,8 @@ public interface UserMapper {
 
     @AutoFill(value = OperationType.UPDATE_USER)
     void update(User user);
+    @Select("select avatar from gps.user where id = #{userId};")
+    String queryAvatarByUserId(Long userId);
 
     Page<User> pageQuery(UserPageQueryDTO userPageQueryDTO);
 

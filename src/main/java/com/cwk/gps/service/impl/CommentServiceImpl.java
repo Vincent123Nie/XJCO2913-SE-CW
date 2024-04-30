@@ -1,8 +1,10 @@
 package com.cwk.gps.service.impl;
 
+import com.cwk.context.BaseContext;
 import com.cwk.gps.mapper.CommentMapper;
 import com.cwk.gps.result.PageResult;
 import com.cwk.gps.service.CommentService;
+import com.cwk.pojo.dto.CommentDTO;
 import com.cwk.pojo.dto.PageQueryDTO;
 import com.cwk.pojo.entity.Comment;
 import com.github.pagehelper.Page;
@@ -32,4 +34,16 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void delete(Long id) {commentMapper.delete(id);}
+
+    /**
+     * 添加评论
+     * @param commentDTO
+     */
+    public void insert(CommentDTO commentDTO) {
+        Comment comment = new Comment();
+        comment.setUserId(BaseContext.getCurrentId());
+        comment.setPostId(commentDTO.getPostId());
+        comment.setContent(commentDTO.getContent());
+        commentMapper.insert(comment);
+    }
 }
