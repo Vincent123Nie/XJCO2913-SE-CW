@@ -21,12 +21,21 @@ public class Order implements Serializable {
     //年卡
     public static final Integer YEAR = 2;
 
+    //月卡价格
+    public static final Integer PRIZE_MONTH = 30;
+    //季卡价格
+    public static final Integer PRIZE_SEASON = 80;
+    //年卡价格
+    public static final Integer PRIZE_YEAR = 300;
+
     //取消
     public static final Integer CANCEL = 0;
     //待支付
     public static final Integer WAITING = 1;
     //已完成
     public static final Integer COMPLETE = 2;
+
+
 
 
     private Long id;

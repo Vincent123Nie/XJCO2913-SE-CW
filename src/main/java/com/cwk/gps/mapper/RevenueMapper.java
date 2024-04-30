@@ -6,6 +6,9 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+
+import java.time.LocalDateTime;
 
 @Mapper
 public interface RevenueMapper {
@@ -17,4 +20,9 @@ public interface RevenueMapper {
 
     @Delete("delete from revenue where order_id = #{orderId}")
     void deleteByOrderId(Long orderId);
+
+    @Select("select sum(money) from revenue")
+    Double getSum();
+
+    Double getSumMonthly(LocalDateTime beginTime, LocalDateTime endTime, Integer prize);
 }

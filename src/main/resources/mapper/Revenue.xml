@@ -6,4 +6,12 @@
     <select id="pageQuery" resultType="com.cwk.pojo.entity.Revenue">
         select * from revenue order by `time` desc
     </select>
+
+    <select id="getSumMonthly" resultType="java.lang.Double">
+        select sum(money) from revenue
+        <where>
+            time &gt; #{beginTime} and time &lt; #{endTime}
+            <if test="prize != null"> and money = #{prize}</if>
+        </where>
+    </select>
 </mapper>
