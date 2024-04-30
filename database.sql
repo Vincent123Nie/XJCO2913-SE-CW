@@ -33,7 +33,7 @@ CREATE TABLE activity (
                         create_user BIGINT DEFAULT '1',
                         update_user BIGINT DEFAULT '1'
 );
-INSERT INTO activity (name, picture, max_participant, start_time, end_time) VALUES ('activity1','picture1',50,'2024-04-14T00:00:00','2024-04-15T00:00:00');
+INSERT INTO activity (name, picture, max_participant, start_time, end_time) VALUES ('activity1','https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/9d5fe231-cce1-4d93-b541-6f48025b9a3f.jpg',50,'2024-04-14T00:00:00','2024-04-15T00:00:00');
 
 DROP TABLE IF EXISTS activity_user;
 CREATE TABLE activity_user (
@@ -58,7 +58,11 @@ CREATE TABLE course (
                         create_user BIGINT DEFAULT '1',
                         update_user BIGINT DEFAULT '1'
 );
-INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course1', 'picture1', 'resource1', 'Yoga', '10', '50');
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course1', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/3c41b231-d593-43f4-8fa1-09d22ec4f4ca.png', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/a786a06b-7d58-41fa-a9b1-c09a67c8195a.mp4', 'Weight-losing', '10', '50');
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course2', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/39d26661-e5dc-47b3-9aef-9e21356aaa41.png', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/e225bb29-5978-4568-a91c-911661cf79e3.mp4', 'Muscle-building', '10', '50');
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course3', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/ccb73e8c-c1df-4bc9-84c0-1952042fb97a.png', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/473fe89a-13cc-4484-82f5-471446b86e89.mp4', 'Rehabilitation', '10', '50');
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course4', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/f4d0ea75-b70c-4d17-b461-ae6f00385595.png', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/a4260d48-1f61-4cf3-a4a8-4e5dca7bf169.mp4', 'Yoga', '10', '50');
+INSERT INTO course (name, picture, resource, type, duration, calorie) VALUES ('course5', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/b7dcc362-953f-402f-b3be-e77c89683767.png', 'https://web-tlias-guyu.oss-cn-beijing.aliyuncs.com/4e0e702c-902c-4f4c-982d-8cff53240afa.mp4', 'Dancing', '10', '50');
 
 
 DROP TABLE IF EXISTS `order`;
